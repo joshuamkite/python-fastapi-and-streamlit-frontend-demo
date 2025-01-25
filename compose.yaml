@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: 
+      context: ./backend-fastapi
+    ports:
+      - "8000:8000"
+ 
+  frontend:
+    build:
+      context: ./frontend-streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000
+    depends_on:
+      - backend

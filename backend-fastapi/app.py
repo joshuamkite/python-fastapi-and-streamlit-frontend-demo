@@ -92,3 +92,8 @@ async def del_product(product_id: int) -> Product:
         if p.id == product_id:
             return products.pop(i)
     raise fastapi.HTTPException(status_code=404, detail="Product not found")
+
+
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
