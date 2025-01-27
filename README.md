@@ -1,4 +1,4 @@
-# API and Caller demo
+# FastAPI and Streamlit Frontend Demo
 
 Demonstrates a FastAPI REST API and a separate frontend using Streamlit web interface, both dockerised and run together using `Docker compose` See separate Frontend and Backend Readme's for additional detail.
 
