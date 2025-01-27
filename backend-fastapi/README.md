@@ -1,94 +1,119 @@
-I'll create a practical challenge that's representative of what you might encounter in a technical interview. Here's a scenario:
+# FastAPI Backend
 
-**Challenge: Product Inventory API**
+A demo FastAPI-based REST API based around managing product inventory.
 
-Create a simple inventory management API that a retail store might use. The requirements are:
+## Features
+- CRUD operations for products
+- Input validation using Pydantic models
+- Error handling for duplicate products
+- Automated tests
+- Health check endpoint
 
-1. Create a FastAPI application with the following endpoints:
-   - GET `/products` - List all products
-   - GET `/products/{product_id}` - Get a specific product
-   - POST `/products` - Add a new product
-   - PUT `/products/{product_id}` - Update a product
-   - DELETE `/products/{product_id}` - Delete a product
+## API Endpoints
+- `GET /products` - List all products
+- `GET /products/{product_id}` - Get specific product
+- `POST /products` - Add new product
+- `PUT /products/{product_id}` - Update product
+- `DELETE /products/{product_id}` - Delete product
+- `GET /health` - Health check
+- `GET /docs` - Get API documentation
 
-2. Each product should have:
-   - id (integer)
-   - name (string)
-   - price (float)
-   - stock_quantity (integer)
-
-3. For this exercise, store the data in memory (no database needed)
-
-Let's tackle this step by step. Would you like me to help you get started with the basic FastAPI setup and the first endpoint? We can then test it with curl, containerize it with Docker, and gradually build up the functionality.
-
-This challenge will help you practice:
-- REST API design
-- Request/Response handling
-- Data validation
-- HTTP methods
-- API testing with curl
-- Docker containerization
-
-Would you like to begin with the initial FastAPI setup?
-
-
--------------
-
- To run a FastAPI application, you need to use an ASGI server like Uvicorn. 
-
-You need to:
-
-1. First install uvicorn if you haven't already:
+## Local Development
+1. Create virtual environment:
 ```bash
-pip install uvicorn
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
 ```
 
-2. Then run your application using uvicorn:
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run locally:
 ```bash
 uvicorn app:app --reload
 ```
 
-Here, the syntax is:
-- `app:app` means "use the `app` variable from the `app.py` file"
-- `--reload` enables auto-reload when code changes (useful during development)
-
-The `--reload` flag is optional but helpful during development as it will automatically restart the server when you make changes to your code.
-
-Once you run this command, your FastAPI application should start and you can access it at `http://localhost:8000`. You can also view the auto-generated API documentation at `http://localhost:8000/docs`.
-
-## list all products
-
+## Testing
+Run the test suite:
 ```bash
-curl http://127.0.0.1:8000/products
+pytest test_app.py
 ```
 
-## match and return on product.id
+### Test Coverage
+The test suite covers:
 
+1. Product Listing
+- Verify GET /products returns all products
+- Check correct initial product count
+- Validate product data structure
+
+2. Single Product Operations
+- Get existing product by ID
+- Handle requests for non-existent products
+- Verify correct product details returned
+
+3. Product Creation
+- Add new product successfully
+- Handle duplicate product ID errors
+- Handle duplicate product name errors
+
+4. Product Updates
+- Update existing product
+- Handle ID mismatches between URL and payload
+- Handle updates to non-existent products
+
+5. Product Deletion
+- Delete existing product
+- Verify product is actually deleted
+- Handle deletion of non-existent products
+
+## Docker
+Build and run:
 ```bash
-curl http://127.0.0.1:8000/products/1
+docker build -t inventory-backend .
+docker run -p 8000:8000 inventory-backend
 ```
 
-## match and return on product.price
+## API Documentation
+Once running, visit:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
+## Example API Usage
 
-## Add a product
-
+List all products:
 ```bash
-curl -X POST http://localhost:8000/add-product \
+curl http://localhost:8000/products
+```
+
+Get specific product:
+```bash
+curl http://localhost:8000/products/1
+```
+
+Add new product:
+```bash
+curl -X POST http://localhost:8000/products \
 -H "Content-Type: application/json" \
 -d '{"id": 4, "name": "dragonfruit", "price": 5, "stock_quantity": 12}'
 ```
 
-## Update a product
-
+Update product:
 ```bash
 curl -X PUT \
   -H "Content-Type: application/json" \
   -d '{"id": 1, "name": "apple", "price": 0.75, "stock_quantity": 200}' \
   http://localhost:8000/products/1
-  ```
+```
 
-##  Delete a product
+Delete product:
 ```bash
 curl -X DELETE http://localhost:8000/products/1
 ```
+
+## Access
+- API: http://localhost:8000
+- API documentation: http://localhost:8000/docs

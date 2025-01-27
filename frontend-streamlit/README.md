@@ -1,6 +1,6 @@
 # Streamlit Frontend
 
-A Streamlit-based frontend for managing product inventory.
+A Streamlit-based frontend for accessing the accompanying FastAPI API based around managing product inventory.
 
 ## Features
 - View product list
