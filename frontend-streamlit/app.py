@@ -87,14 +87,11 @@ def delete_product(id):
 st.title('API Caller Demo')
 st.write('Call locally hosted API using Streamlit')
 
-# List all products
 
 if st.button('List all products'):
     api_response = list_all_products()
     display_products(api_response)
 
-
-# Get a product by ID
 
 get_product_by_id_label = "get a product from its ID"
 st.expander(get_product_by_id_label, expanded=False, icon=None)
@@ -106,7 +103,6 @@ with st.expander(get_product_by_id_label, expanded=False):
         api_response = get_product_by_id(id)
         display_products([api_response])
 
-# Add a product
 
 add_label = "add a product"
 st.expander(add_label, expanded=False, icon=None)
@@ -129,7 +125,6 @@ with st.expander("add a product", expanded=False):
         else:
             st.write(api_response)
 
-# Update a product
 
 update_label = "update a product"
 st.expander(update_label, expanded=False, icon=None)
@@ -152,7 +147,6 @@ with st.expander("update a product", expanded=False):
         else:
             st.write(update_response)
 
-# Delete a product
 
 delete_label = "delete a product"
 st.expander(delete_label, expanded=False, icon=None)

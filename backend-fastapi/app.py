@@ -37,14 +37,6 @@ product_items = [
 
 products = [Product(**item) for item in product_items]
 
-# Equivalent to:
-# products = []
-
-# for item in product_items:
-#     products.append(Product(**item))
-
-# The square brackets [ ] replace both the empty list creation and the append() method. They tell Python "create a new list containing everything that results from this expression."
-
 
 @app.get("/products")
 async def read_products() -> list[Product]:
